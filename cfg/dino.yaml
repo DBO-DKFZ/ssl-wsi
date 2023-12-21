@@ -1,0 +1,91 @@
+model:
+    arch: "small"
+    image_size: 224
+    patch_size: 16
+    drop_path_rate: 0.1
+    pos_emb: "learned"
+    hidden_dim: 2048
+    bottleneck_dim: 256
+    output_dim: 65536
+    batch_norm: True
+    freeze_last_layer: 1
+    norm_last_layer: True
+    warmup_teacher_temp: 0.04 
+    teacher_temp: 0.06
+    warmup_teacher_temp_epochs: 30
+    student_temp: 0.1
+    center_momentum: 0.9
+    lr_start: 0.00025
+    lr_final: 1.0E-6
+    lr_warmup_epochs: 10
+    wd_start: 0.04
+    wd_final: 0.4
+    mm_start: 0.994
+    mm_final: 1.0
+    compile: False
+    
+data:
+    root: "path/to/data"
+    frame: "TCGA/tcga_all_mag40.csv"
+    limit_slides: 0
+    level: 0
+    verbose: False
+    epoch_length: 1281167
+    seed: 42
+    tile_size_multiple: 2
+    steps_per_epoch: null
+    natural_ratio: 0.0
+    natural_root: "path/to/imagenet/ILSVRC/Data/CLS-LOC/train"
+    natural_replace: False
+    batch_size_per_device: 216
+    num_workers: 16
+    simplify_tolerance: 100
+    centroid_in_annotation: True
+    allow_out_of_bounds: False
+    simple_epoch: True
+    without_wsi: False
+    
+trainer:
+    max_epochs: 100
+    devices: "auto"
+    accelerator: "gpu"
+    precision: "16-mixed"
+    strategy: "ddp"
+    sync_batchnorm: True
+    use_distributed_sampler: True
+    gradient_clip_val: 3
+    benchmark: True
+    reload_dataloaders_every_n_epochs: 1
+    detect_anomaly: False
+    
+pbar:
+    refresh_rate: 500
+    
+ckpt:
+    every_n_epochs: 50
+    save_last: True
+    
+logger:
+    save_dir: "dino"
+   
+transform:
+    global_crop_size: 224
+    global_crop_scale: [0.25, 1.0]
+    local_crop_size: 96
+    local_crop_scale: [0.05, 0.25]
+    n_local_views: 10
+    flip_prob: 0.5
+    rr_prob: 0.5
+    cj_prob: 0.8
+    cj_strength: 0.5
+    cj_bright: 0.8
+    cj_contrast: 0.8
+    cj_sat: 0.8
+    cj_hue: 0.2
+    random_gray_scale: 0.2
+    gaussian_blur: [1.0, 0.1, 0.5]
+    sigmas: [0.1, 2]
+    solarization_prob: 0.2
+    normalize:
+        mean: [0.5, 0.5, 0.5]
+        std: [0.5, 0.5, 0.5]

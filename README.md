@@ -1,2 +1,4 @@
-# ssl-wsi
-Self-supervised learning on WSI
+Self-Supervised Learning on WSI
+-------------------------------
+
+WIP

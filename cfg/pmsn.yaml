@@ -1,0 +1,91 @@
+model:
+    arch: "small"
+    image_size: 224
+    patch_size: 16
+    drop_path_rate: 0.1
+    pos_emb: "learned"
+    hidden_dim: 2048
+    output_dim: 256
+    mask_ratio: 0.15
+    num_proto: 1024
+    temperature: 0.1
+    sinkhorn_iterations: 3
+    regularization_weight: 1.0
+    power_law_exponent: 0.25
+    gather_distributed: True
+    lr_start: 0.001
+    lr_final: 1e-6
+    lr_warmup_epochs: 15
+    wd_start: 0.04
+    wd_final: 0.4
+    mm_start: 0.994
+    mm_final: 1.0
+    T_start: 0.25
+    T_final: 0.25
+    compile: False
+    
+data:
+    root: "path/to/data"
+    frame: "TCGA/tcga_all_mag40.csv"
+    limit_slides: 0
+    level: 0
+    verbose: False
+    epoch_length: 1281167
+    seed: 42
+    tile_size_multiple: 2
+    steps_per_epoch: null
+    natural_ratio: 0.0
+    natural_root: "path/to/imagenet/ILSVRC/Data/CLS-LOC/train"
+    natural_replace: False
+    batch_size_per_device: 432
+    num_workers: 16
+    simplify_tolerance: 100
+    centroid_in_annotation: True
+    allow_out_of_bounds: False
+    simple_epoch: True
+    without_wsi: False
+    
+trainer:
+    max_epochs: 100
+    devices: "auto"
+    accelerator: "gpu"
+    precision: "16-mixed"
+    strategy: "ddp_find_unused_parameters_true"
+    sync_batchnorm: True
+    use_distributed_sampler: True
+    gradient_clip_val: 3
+    benchmark: True
+    reload_dataloaders_every_n_epochs: 1
+    detect_anomaly: False
+    
+pbar:
+    refresh_rate: 500
+    
+ckpt:
+    every_n_epochs: 50
+    save_last: True
+    
+logger:
+    save_dir: "pmsn"
+   
+transform:
+    random_size: 224
+    focal_size: 96
+    random_views: 2
+    focal_views: 10
+    random_crop_scale: [0.25, 1.0]
+    focal_crop_scale: [0.05, 0.25]
+    cj_prob: 0.8
+    cj_strength: 0.5
+    cj_bright: 0.8
+    cj_contrast: 0.8
+    cj_sat: 0.8
+    cj_hue: 0.2
+    random_gray_scale: 0.2
+    gaussian_blur: 0.5
+    sigmas: [0.1, 2]
+    flip_prob: 0.5
+    rr_prob: 0.5
+    normalize:
+        mean: [0.5, 0.5, 0.5]
+        std: [0.5, 0.5, 0.5]
