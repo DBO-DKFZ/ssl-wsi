@@ -1,7 +1,7 @@
 Self-Supervised Learning on WSI
 -------------------------------
 
-*Pretrained model checkpoints are [here](https://drive.google.com/drive/folders/1awqa9uNAtBFqfsdRMT4vB5TCG6QqrJKL?usp=sharing).*
+*Pretrained model checkpoints are [here](https://drive.google.com/drive/folders/1awqa9uNAtBFqfsdRMT4vB5TCG6QqrJKL?usp=sharing).* You can cite this repository in the sidebar if you use it for your research.
 
 This repository contains PyTorch code to train on thousands of WSI with self-supervision, namely [DINO](https://arxiv.org/abs/2104.14294) and [PMSN](https://arxiv.org/abs/2210.07277). To achieve this we make use of [Lightning](https://github.com/Lightning-AI/pytorch-lightning), [Lightly](https://github.com/lightly-ai/lightly) and our own framework to handle WSI called [slide-tools](https://github.com/DBO-DKFZ/slide_tools).
 
